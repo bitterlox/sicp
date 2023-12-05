@@ -17,17 +17,19 @@
     (display "\n")
 )
 
+(define (random-id) (random 100000000000000000))
+
 
 (define (count-change amount)
-   (cc (random 100000000000000000000000000000) amount 5))
+   (cc (random-id) amount 5))
 
 (define (cc node-id amount kinds-of-coins)
     (cond ((= amount 0) 1)
          ((or (< amount 0) (= kinds-of-coins 0)) 0)
          (else 
            (let (
-                 (left-id (random 100000000000000000000000000000))
-                 (right-id (random 100000000000000000000000000000))
+                 (left-id (random-id))
+                 (right-id (random-id))
                  ) 
                   (print-label node-id amount kinds-of-coins)
                   (print-label left-id amount (- kinds-of-coins 1))
