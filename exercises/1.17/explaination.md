@@ -1,3 +1,4 @@
+# explaination
 
 here is a table with the number we're multiplying by and
 the number of steps the process takes
