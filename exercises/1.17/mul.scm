@@ -6,7 +6,7 @@
     (cond
       ((= b 1) a)
       ((even? b) 
-       (display "a: ") (display a) (display " - b: ") (display b) (newline)
-       (mul (double a) (halve b)))
+       ;(display "a: ") (display a) (display " - b: ") (display b) (newline)
+       (double (mul a (halve b))))
       (else (+ a (mul a (- b 1))))))
   (mul a b))

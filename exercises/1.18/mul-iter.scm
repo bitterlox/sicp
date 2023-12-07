@@ -1,0 +1,12 @@
+(define (* aa bb)
+  (define (even? n) (= (remainder n 2) 0))
+  (define (double x) (+ x x))
+  (define (halve x) (/ x 2))
+  (define (mul a b c) 
+    (cond
+      ((= c 0) (+ a b))
+      ((even? c) 
+       (display "a: ") (display a) (display " - b: ") (display b) (display " - c: ") (display c) (newline)
+       (mul a (double b) (halve c)))
+      (else (mul (+ a aa) b (- c 1)))))
+  (mul 0 aa bb))
