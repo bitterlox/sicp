@@ -4,9 +4,11 @@
   (define (halve x) (/ x 2))
   (define (mul a b c) 
     (cond
-      ((= c 0) (+ a b))
+      ((= c 1) (+ a b))
       ((even? c) 
-       (display "a: ") (display a) (display " - b: ") (display b) (display " - c: ") (display c) (newline)
+       ;(display "a: ") (display a) (display " - b: ") (display b) (display " - c: ") (display c) (newline)
        (mul a (double b) (halve c)))
-      (else (mul (+ a aa) b (- c 1)))))
+      (else 
+       ;(display "a: ") (display a) (display " - b: ") (display b) (display " - c: ") (display c) (newline)
+        (mul (+ a b) b (- c 1)))))
   (mul 0 aa bb))
