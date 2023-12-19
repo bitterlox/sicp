@@ -8,8 +8,8 @@
      (fib-iter
        a
        b
-       q
-       (+ p q)
+       (+ (* p p) (* q q)) ; compute p′
+       (+ (* 2 p q) (* q q)) ; compute q′
        (/ count 2)))
     (else 
       (fib-iter
