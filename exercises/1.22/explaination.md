@@ -1,6 +1,5 @@
 # explaination
 
-
 first three primes after 1000:
 
 number | execution time
