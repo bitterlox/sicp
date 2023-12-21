@@ -4,7 +4,7 @@ reworked the code that measured the time it takes
 for the prime test to run to use `with-timings` builtin
 which returns ticks instead of seconds and i feel is better
 
-number | time (ticks) | time (gc) | time(total)
+number | total-time in ticks () | time (gc) | time(total)
 --- | --- | --- | ---
 1009 | 0 | 0 | 0
 1013 | 0 | 0 | 0
@@ -66,3 +66,11 @@ number | time (ticks) | time (gc) | time(total)
 1000000000039 | 660 | 0 | 661
 1000000000061 | 640 | 30 | 668
 1000000000063 | 560 | 0 | 561
+
+---
+
+ok so i don't want to run any sort of calculations to prove this but, eye-balling it
+it's def faster, as most of the excution times in the second table are lower than the
+ones in the other table for the same prime, but it seems that it's still growing at about
+sqrt(n). I think what this improvement did is remove a constant amount of steps from all
+calculations, but didn't significantly alter the order of growth away from sqrt(n)
