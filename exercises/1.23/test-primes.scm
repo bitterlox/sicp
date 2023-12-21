@@ -1,29 +1,20 @@
 (load "/home/angel/sicp/exercises/1.23/smallest-divisor.scm")
+(load "/home/angel/sicp/exercises/1.23/smallest-divisor-faster.scm")
 
 (define (prime? n) (= n (smallest-divisor n)))
+(define (prime-faster? n) (= n (smallest-divisor-faster n)))
 
 (define (timed-prime-test n)
   (newline)
   (display n)
   (with-timings
     (lambda () (prime? n))
-    report-prime))
+    report-time)
+  (with-timings
+    (lambda () (prime-faster? n))
+    report-time))
 
-(define (start-prime-test n start-time)
-  (cond
-    ((prime? n)
-     (report-prime (- (runtime) start-time))
-     #t)
-    (else #f)))
-
-(define (report-prime elapsed-time gc realtime)
-  (define (round-off z n)
-  (let ((power (expt 10 n)))
-    (/ (round (* power z)) power)))
-  (display " | ")
-  (display elapsed-time)
-  (display " | ")
-  (display gc)
+(define (report-time elapsed-time gc realtime)
   (display " | ")
   (display realtime))
 
