@@ -2,11 +2,26 @@
 (load "/home/angel/sicp/exercises/2.7/selectors.scm")
 
 (define (mul-interval x y)
+  (define (get-lower-bound x0pos y0pos x1pos y1pos)
+    (cond
+      ()))
   (let
-    ((p1 (* (lower-bound x) (lower-bound y)))
-     (p2 (* (lower-bound x) (upper-bound y)))
-     (p3 (* (upper-bound x) (lower-bound y)))
-     (p4 (* (upper-bound x) (upper-bound y))))
-    (make-interval 
-      (min p1 p2 p3 p4)
-      (max p1 p2 p3 p4))))
+    ((x0pos (> lower-bound x) 0)
+     (y0pos (> lower-bound y) 0)
+     (x1pos (> upper-bound x) 0)
+     (y1pos (> upper-bound y) 0))
+    (cond
+      ((and
+         x-lo-pos
+         y-lo-pos) ()))))
+
+
+; 9 cases:
+; x-lo | x-up | y-lo | y-up |
+;  +   |  +   |  +   |  +   |
+;  +   |  +   |  +   |  +   |
+;  +   |  +   |  +   |  +   |
+;  +   |  +   |  +   |  +   |
+; for each pair of bound the sign can be:
+; + -, - +, ++, --
+
