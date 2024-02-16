@@ -1,12 +1,12 @@
-
-(define (fringe list)
-  (define (fringe-iter result to-fringe)
-    (cond
-      ((null? (cdr to-fringe))
-       (list (car to-fringe)))
-      ((pair? (cdr to-fringe))
-       (fringe-iter result (cdr to-fringe)))
-      ))
-  (trace fringe-iter)
-  (trace fringe)
-  (fringe-iter '() list))
+; the trick was realizing (duh) that this is a tree, and reducing the operation
+; to and operation on branches and on leaves
+(define (fringe l)
+  (cond
+    ((pair? l)
+     (if
+       (null? (cdr l))
+       (fringe (car l))
+       (append
+         (fringe (car l))
+         (fringe (cdr l)))))
+    (else (list l))))
