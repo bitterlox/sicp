@@ -28,49 +28,30 @@
 
 ; procedures
 
-  (define (is-mobile m)
-    (and
-      (pair? (left-branch m))
-      (pair? (right-branch m))))
 
-(define (total-weight mobile)
-  (define (branch-weight branch)
-    (cond
-      ((is-mobile branch)
-       (total-weight branch))
-      (else (branch-structure branch))))
+(define (is-submobile branch)
+  (if (pair? branch) (pair? (cadr branch)) #f))
+
+(define (total-weight branch)
   (+
-    (branch-weight (left-branch mobile))
-    (branch-weight (right-branch mobile))))
+    (cond
+      ((is-submobile (right-branch branch))
+       (total-weight (right-branch branch)))
+      (else (branch-structure (right-branch branch))))
+    (cond
+      ((is-submobile (left-branch branch))
+       (total-weight (left-branch branch)))
+      (else (branch-structure (left-branch branch))))))
 
 (define (balanced mobile)
-  (and
-    (if
-      (is-mobile (left-branch mobile))
-      (balanced (left-branch mobile))
-      (*
-        (branch-length ())
-        (total-weight branch)))
-    (if
-      (is-mobile (right-branch mobile))
-      (balanced (right-branch mobile))
-      (*
-        (branch-length branch)
-        (total-weight branch))))
-  (define (branch-balanced branch)
-    (if
-      (is-mobile branch)
-      (balanced branch)
-      (=
-        (*
-          (branch-length branch)
-          (total-weight branch))
-        (*
-          (branch-length branch)
-          (total-weight branch)))))
-  (trace balanced)
-  (trace branch-balanced)
-  (trace is-mobile)
-  (and
-    (branch-balanced (left-branch mobile))
-    (branch-balanced (right-branch mobile))))
+  (define (balanced-rec arg)
+    (cond
+      ((null? arg) #f)
+      ((number? arg) arg)
+      ((pair? arg)
+       (let
+         ((left (balanced-rec )))
+         ()))
+      ))
+  )
+
