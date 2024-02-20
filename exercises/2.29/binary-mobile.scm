@@ -13,45 +13,52 @@
   (car mobile))
 
 (define (right-branch mobile)
-  (car (cdr mobile)))
+  (cadr mobile))
 
 (define (branch-length branch)
   (car branch))
 
 (define (branch-structure branch)
-  (if
-    (and
-      (pair? (cdr branch))
-      (null? (cddr branch)))
-    (car (cdr branch))
-    (cdr branch)))
+  (cadr branch))
 
 ; procedures
 
 
-(define (is-submobile branch)
-  (if (pair? branch) (pair? (cadr branch)) #f))
+(define (is-mobile v)
+  (and
+    (pair? v)
+    (pair? (left-branch v))))
 
 (define (total-weight branch)
   (+
     (cond
-      ((is-submobile (right-branch branch))
+      ((is-mobile (right-branch branch))
        (total-weight (right-branch branch)))
       (else (branch-structure (right-branch branch))))
     (cond
-      ((is-submobile (left-branch branch))
+      ((is-mobile (left-branch branch))
        (total-weight (left-branch branch)))
       (else (branch-structure (left-branch branch))))))
 
+(define (torque branch)
+  (*
+    (branch-length branch)
+    (branch-structure branch)))
+
 (define (balanced mobile)
-  (define (balanced-rec arg)
-    (cond
-      ((null? arg) #f)
-      ((number? arg) arg)
-      ((pair? arg)
-       (let
-         ((left (balanced-rec )))
-         ()))
-      ))
+  (cond
+    ((and
+       (is-mobile (left-branch mobile))
+       (is-mobile (right-branch mobile)))
+     (and
+       (balanced (left-branch mobile))
+       (balanced (right-branch mobile))))
+    ((not (and
+       (is-mobile (left-branch mobile))
+       (is-mobile (right-branch mobile))))
+     (=
+       (torque (right-branch mobile))
+       (torque (left-branch mobile))))
+     (else #f))
   )
 
