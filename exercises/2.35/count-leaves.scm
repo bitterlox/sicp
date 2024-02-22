@@ -3,14 +3,12 @@
 (define (count-leaves t)
   (accumulate
     (lambda (x y)
-      (+ 1 y))
+      (+ x y))
     0
-    (map (lambda (x)
-                 (if
-                   (pair? x)
-                   (+
-                     (count-leaves (car x))
-                     (count-leaves (cadr x)))
-                   '()))
-         t
-         )))
+    (map
+      (lambda (x)
+        (cond
+          ((null? x) 0)
+          ((pair? x) (count-leaves x))
+          (else 1)))
+      t)))
