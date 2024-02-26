@@ -21,3 +21,11 @@
     ((cols (transpose n)))
     (map (lambda (v) (matrix-*-vector cols v)) m)))
 
+(define (display-matrix m)
+  (newline)
+  (for-each
+    (lambda (row)
+      (display row)
+      (newline))
+    m)
+  (newline))

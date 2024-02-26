@@ -1,5 +1,6 @@
 (load "/home/angel/sicp/exercises/2.40/enumerate-interval.scm")
 (load "/home/angel/sicp/exercises/2.40/flatmap.scm")
+(load "/home/angel/sicp/exercises/2.37/matrices.scm")
 
 (define (queens board-size)
   (define (queen-cols k)
@@ -20,7 +21,122 @@
 
 ; my contribution
 
-(define empty-board '())
+;; helpers
+
+(define empty-vector (list 0 0 0 0 0 0 0 0))
+
+(define empty-board
+  (list
+    empty-vector
+    empty-vector
+    empty-vector
+    empty-vector
+    empty-vector
+    empty-vector
+    empty-vector))
+
+(define (matrix-+-matrix m n)
+  (map (lambda (mi ni) (map + mi ni)) m n)) 
+
+(define (vector-with-queen-at-col col)
+  (cond
+    ((= col 1) (list 1 0 0 0 0 0 0 0))
+    ((= col 2) (list 0 1 0 0 0 0 0 0))
+    ((= col 3) (list 0 0 1 0 0 0 0 0))
+    ((= col 4) (list 0 0 0 1 0 0 0 0))
+    ((= col 5) (list 0 0 0 0 1 0 0 0))
+    ((= col 6) (list 0 0 0 0 0 1 0 0))
+    ((= col 7) (list 0 0 0 0 0 0 1 0))
+    ((= col 8) (list 0 0 0 0 0 0 0 1))
+    (else (error "col out of bounds"))))
+
+(define (matrix-with-vector-at-row vec row)
+  (cond
+    ((= row 1) (list
+                   vec
+                   empty-vector
+                   empty-vector
+                   empty-vector
+                   empty-vector
+                   empty-vector
+                   empty-vector
+                   empty-vector))
+    ((= row 2) (list empty-vector
+                     vec
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector))
+    ((= row 3) (list empty-vector
+                     empty-vector
+                     vec
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector))
+    ((= row 4) (list empty-vector
+                     empty-vector
+                     empty-vector
+                     vec
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector))
+    ((= row 5) (list empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     vec
+                     empty-vector
+                     empty-vector
+                     empty-vector))
+    ((= row 6) (list empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     vec
+                     empty-vector
+                     empty-vector))
+    ((= row 7) (list empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     vec
+                     empty-vector))
+    ((= row 8) (list empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     empty-vector
+                     vec))
+    (else (error "row out of bounds"))))
+
+(define (make-matrix-with-queen col row)
+  (let ((matrix
+          (matrix-with-vector-at-row (vector-with-queen-at-col col) row)))
+    (transpose matrix)))
+
+;; fns for queen-cols
+
+(define (adjoin-position row col prev-board)
+  (matrix-+-matrix
+    prev-board
+    (matrix-with-vector-at-row
+      (vector-with-queen-at-col col)
+      row)))
+
+; just missing the safe? procedure, should be done after after
+(define (safe? vec) (< (fold-right + 0 vec) 2))
+
+
 
 ; key aspects
 ; in defining adjoin-position, we're passing it a row and a column (column is k)
