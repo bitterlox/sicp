@@ -6,7 +6,7 @@
   (define (queen-cols k)
     (if
       (= k 0)
-      (list empty-board)
+      (list '())
       (filter
         (lambda (positions) (safe? k positions))
         (flatmap
@@ -21,127 +21,21 @@
 
 ; my contribution
 
-;; helpers
 
-(define empty-vector (list 0 0 0 0 0 0 0 0))
-
-(define empty-board
-  (list
-    empty-vector
-    empty-vector
-    empty-vector
-    empty-vector
-    empty-vector
-    empty-vector
-    empty-vector))
-
-(define (matrix-+-matrix m n)
-  (map (lambda (mi ni) (map + mi ni)) m n)) 
-
-(define (vector-with-queen-at-col col)
-  (cond
-    ((= col 1) (list 1 0 0 0 0 0 0 0))
-    ((= col 2) (list 0 1 0 0 0 0 0 0))
-    ((= col 3) (list 0 0 1 0 0 0 0 0))
-    ((= col 4) (list 0 0 0 1 0 0 0 0))
-    ((= col 5) (list 0 0 0 0 1 0 0 0))
-    ((= col 6) (list 0 0 0 0 0 1 0 0))
-    ((= col 7) (list 0 0 0 0 0 0 1 0))
-    ((= col 8) (list 0 0 0 0 0 0 0 1))
-    (else (error "col out of bounds"))))
-
-(define (matrix-with-vector-at-row vec row)
-  (cond
-    ((= row 1) (list
-                   vec
-                   empty-vector
-                   empty-vector
-                   empty-vector
-                   empty-vector
-                   empty-vector
-                   empty-vector
-                   empty-vector))
-    ((= row 2) (list empty-vector
-                     vec
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector))
-    ((= row 3) (list empty-vector
-                     empty-vector
-                     vec
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector))
-    ((= row 4) (list empty-vector
-                     empty-vector
-                     empty-vector
-                     vec
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector))
-    ((= row 5) (list empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     vec
-                     empty-vector
-                     empty-vector
-                     empty-vector))
-    ((= row 6) (list empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     vec
-                     empty-vector
-                     empty-vector))
-    ((= row 7) (list empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     vec
-                     empty-vector))
-    ((= row 8) (list empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     empty-vector
-                     vec))
-    (else (error "row out of bounds"))))
-
-(define (make-matrix-with-queen col row)
-  (let ((matrix
-          (matrix-with-vector-at-row (vector-with-queen-at-col col) row)))
-    (transpose matrix)))
-
-;; fns for queen-cols
-
-(define (adjoin-position row col prev-board)
-  (matrix-+-matrix
-    prev-board
-    (matrix-with-vector-at-row
-      (vector-with-queen-at-col col)
-      row)))
+(define (adjoin-position row col rest-of-queens)
+  (cons (list row col) rest-of-queens))
 
 ; just missing the safe? procedure, should be done after after
 ; we're not using k here but i think it works the same
 (define (safe? k positions)
-  (fold-right
-    (lambda (a b) (and a b))
-    true 
-    (map
-      (lambda (row) (< (fold-right + 0 row) 2))
-      positions)))
+  (define (check q1 q2) let
+    ((x1 (car q1))
+     (x2 (car q2))
+     (y1 (cadr q1))
+     (y2 (cadr q2)))
+    (and (not (= ax bx)) (not (= ay by))
+          (not (= (abs (- ax bx)) (abs (- ay by))))))
+  ())
 
 
 
