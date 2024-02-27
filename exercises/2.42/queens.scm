@@ -134,7 +134,14 @@
       row)))
 
 ; just missing the safe? procedure, should be done after after
-(define (safe? vec) (< (fold-right + 0 vec) 2))
+; we're not using k here but i think it works the same
+(define (safe? k positions)
+  (fold-right
+    (lambda (a b) (and a b))
+    true 
+    (map
+      (lambda (row) (< (fold-right + 0 row) 2))
+      positions)))
 
 
 
