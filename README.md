@@ -4,3 +4,5 @@ This repo contains experimentations and exercises done while studying the SICP b
 2.9-2.16
 
 2.42-2.43
+
+2.49d
