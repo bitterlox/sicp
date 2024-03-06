@@ -23,7 +23,10 @@
 
 (define (addend s) (cadr s))
 
-(define (augend s) (caddr s))
+(define (augend s) (if
+    (= (length s) 3)
+    (caddr s)
+    (make-sum (addend (cdr s)) (augend (cdr s)))))
 
 (define (multiplier p) (cadr p))
 
@@ -31,7 +34,7 @@
   (if
     (= (length p) 3)
     (caddr p)
-    (make-product (caddr p) (multiplicand (cdr p)))))
+    (make-product (multiplier (cdr p)) (multiplicand (cdr p)))))
 
 ; predicates
 
