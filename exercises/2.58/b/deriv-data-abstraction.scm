@@ -26,17 +26,27 @@
 
 (define (augend s)
   (if
-    (= (length s) 3)
-    (caddr s)
-    (make-sum (addend (cddr s)) (augend (cddr s)))))
+    (> (length s) 3)
+    (cond
+      ((sum? (cddr s))
+       (make-sum (addend (cddr s)) (augend (cddr s))))
+      ((product? (cddr s)) 
+       (make-product (multiplier (cddr s)) (multiplicand (cddr s))))
+      (else (error "ERROR - augend")))
+    (caddr s)))
 
 (define (multiplier p) (car p))
 
 (define (multiplicand p)
   (if
-    (= (length p) 3)
-    (caddr p)
-    (make-product (multiplier (cddr p)) (multiplicand (cddr p)))))
+    (> (length p) 3)
+    (cond
+      ((sum? (cddr p))
+       (make-sum (addend (cddr p)) (augend (cddr p))))
+      ((product? (cddr p)) 
+       (make-product (multiplier (cddr p)) (multiplicand (cddr p))))
+      (else (error "ERROR - multiplicand")))
+    (caddr p)))
 
 ; predicates
 
