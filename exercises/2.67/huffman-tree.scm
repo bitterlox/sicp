@@ -4,13 +4,6 @@
 
 (define (make-leaf symbol weight) (list 'leaf symbol weight))
 
-(define (make-code-tree left right)
-  (list
-    left
-    right
-    (append (symbols left) (symbols right))
-    (+ (weight left) (weight right))))
-
 ; predicates
 
 (define (leaf? object) (eq? (car object) 'leaf))
@@ -60,23 +53,3 @@
     ((= bit 0) (left-branch branch))
     ((= bit 1) (right-branch branch))
     (else (error "bad bit: CHOOSE-BRANCH" bit))))
-
-(define (adjoin-set x set)
-  (cond
-    ((null? set)
-     (list x))
-    ((< (weight x) (weight (car set)))
-     (cons x set))
-    (else
-      (cons (car set) (adjoin-set x (cdr set))))))
-
-(define (make-leaf-set pairs)
-  (if
-    (null? pairs)
-    '()
-    (let
-      ((pair (car pairs)))
-      (adjoin-set
-        (make-leaf (car pair) ; symbol
-                   (cadr pair)) ; frequency
-        (make-leaf-set (cdr pairs))))))
