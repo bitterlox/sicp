@@ -21,6 +21,13 @@
               (copy-to-list (right-branch tree) result-list)))))
   (copy-to-list tree '()))
 
-(define tree1 '(7 (3 (1 () ()) (5 () ())) (9 () (11))))
+(define tree1 '(7 (3 (1 () ()) (5 () ())) (9 () (11 () ()))))
+;(define tree1 (make-tree 7
+;                         (make-tree 3
+;                                    (make-tree 1 '() '())
+;                                    (make-tree 5 '() '()))
+;                         (make-tree 9
+;                                    '()
+;                                    (make-tree 11 '() '()))))
 (define tree2 '(3 (1 () ()) (7 (5 () ()) (9 () (11 () ())))))
-(define tree2 '(5 (3 (1 () ()) ()) (9 (7 () ()) (11 () ()))))
+(define tree3 '(5 (3 (1 () ()) ()) (9 (7 () ()) (11 () ()))))
