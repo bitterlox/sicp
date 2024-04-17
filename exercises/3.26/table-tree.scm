@@ -1,13 +1,9 @@
-(load "/home/angel/sicp/exercises/3.26/tree.scm")
+(load "/home/angel/sicp/exercises/3.26/add.scm")
 
 (define (make-table)
   (let
     ((local-table (list '*table*)))
-    (define (get-val-at-key tbl key)
-      (let
-        ((record (entry (cdr tbl))))
-        (cond
-          ((= (entry-key record) key) (entry-value record)))))
+    (define (get-val-at-key tbl key) (assoc key (cdr tbl)))
     (define (lookup tbl keys)
       (if
         (= (length keys) 1)
