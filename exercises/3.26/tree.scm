@@ -28,13 +28,16 @@
     ((> x (entry set))
      (element-of-set? x (right-branch set)))))
 
-(define (get-val-at-key tree k)
+(define (tree-get-val-at-key tree k)
+  (if
+    (null? tree)
+    #f
   (let
     ((record (entry tree)))
     (cond
       ((= (entry-key record) k) (entry-value record))
-      ((< (entry-key record) k) (get-val-at-key (right-branch tree) k))
-      (else (get-val-at-key (left-branch tree) k)))))
+      ((< (entry-key record) k) (tree-get-val-at-key (right-branch tree) k))
+      (else (tree-get-val-at-key (left-branch tree) k))))))
 
 (define (tree-adjoin! tree key val)
   (cond
