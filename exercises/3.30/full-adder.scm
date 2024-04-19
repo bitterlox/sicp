@@ -1,0 +1,11 @@
+(load "/home/angel/sicp/exercises/3.30/half-adder.scm")
+(load "/home/angel/sicp/exercises/3.28/or-gate.scm")
+
+(define (full-adder a b cin sum cout)
+  (let ((1st-ha-sum (make-wire)) 
+         (fist-ha-cout (make-wire)) 
+         (second-ha-cout (make-wire)))
+    (half-adder b cin 1st-ha-sum fist-ha-cout)
+    (half-adder a 1st-ha-sum sum second-ha-cout)
+    (or-gate fist-ha-cout second-ha-cout cout)
+  'ok))
