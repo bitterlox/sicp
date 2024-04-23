@@ -1,4 +1,4 @@
-(load "/home/angel/sicp/exercises/3.32/for-each-except.scm")
+(load "/home/angel/sicp/exercises/3.33/for-each-except.scm")
 
 ; constructor
 (define (make-connector)
